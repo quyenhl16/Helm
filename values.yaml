@@ -1,0 +1,31 @@
+###### -------- Template For Helm ------------#####
+### -------- Section 0: For Default - Common -------- ###
+
+## ----------- Section 1. 1: Metadata ----------- ##
+metadata:
+  namespace: xyz
+  labelsApp: nginx
+## ---------- Section 1. 2: For Spec ------------ ##
+spec:
+  sltMtlApp: nginx
+  replicas: 1
+
+## --------- Section 1. 2. 1: For Template ---------- ##
+template:
+  mtdLbApp: nginx
+## --------- Section 1. 2. 1. 1: For Container ------- ##
+
+containers:
+  name: ctn-nginx
+  image:
+    repo: undef
+    imageName: nginx
+    tag: latest
+  resources:
+    requestCpu: undef
+    requestsMem: undef 
+    limitCpu: undef
+    limitMem: undef
+  env: undef
+  port:
+    containerPort: 80

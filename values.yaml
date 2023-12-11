@@ -1,8 +1,10 @@
-###### -------- Template For Helm ------------#####
+###### ! ================== Template For Helm ================  ! #####
+## *---------- This is template values.yaml for Deployment -----------* ##
 ### -------- Section 0: For Default - Common -------- ###
 
 ## ----------- Section 1. 1: Metadata ----------- ##
 metadata:
+  name: undef
   namespace: xyz
   labelsApp: nginx
 ## ---------- Section 1. 2: For Spec ------------ ##
@@ -29,3 +31,84 @@ containers:
   env: undef
   port:
     containerPort: 80
+  volumeMounts:
+    name: undef
+    mountPath: undef
+
+## --------- Section 1. 2. 1. 2: For Volume ------- ##
+
+volumes:
+  name: undef
+  volumesPath: undef
+
+## -------- Section 1. 2. 1. 3: For Restart Policy ----##
+
+restartPolicy: Always
+## ------------------------------ END ---------------------------------- ##
+---
+## *---------- This is template values.yaml for StateFulSets -----------* ##
+### -------- Section 0: For Default - Common -------- ###
+
+## ----------- Section 1. 1: Metadata ----------- ##
+metadata:
+  name: nginx
+  namespace: xyz
+  labelsApp: nginx
+## ---------- Section 1. 2: For Spec ------------ ##
+spec:
+  sltMtlApp: nginx
+  replicas: 1
+  serviceName: nginx-svc
+## --------- Section 1. 2. 1: For Template ---------- ##
+template:
+  mtdLbApp: nginx
+
+## --------- Section 1. 2. 1. 1: For Container ------- ##
+
+containers:
+  name: ctn-nginx
+  image:
+    repo: undef
+    imageName: nginx
+    tag: latest
+  resources:
+    requestCpu: undef
+    requestsMem: undef 
+    limitCpu: undef
+    limitMem: undef
+  env: undef
+  port:
+    name: undef
+    containerPort: 80
+  volumeMounts:
+    name: nginx
+    mountPath: /home/quyenhl/nginx
+
+## --------- Section 1. 2. 2: For VolumeClaimTemplates ------- ##
+volumeClaimTemplates:
+  mtdName: nginx
+  accessModes: [ "ReadWriteOnce" ]
+  storageClassName: "my-storage-class"
+  rsReqStorage: 1Gi
+## ------------------------------ END ---------------------------------- ##
+---
+## *---------- This is template values.yaml for Service -----------* ##
+### -------- Section 0: For Default - Common -------- ###
+
+## ----------- Section 1. 1: Metadata ----------- ##
+metadata:
+  name: nginx
+  namespace: xyz
+## ---------- Section 1. 2: For Spec ------------ ##
+spec:
+  externalIPs: 192.168.1.1
+  sltApp: nginx
+  type: ClusterIP
+  ports:
+    name: nginx
+    protocol: TCP
+    port: 6789
+    targetPort: 80
+    nodePort: 12345
+
+## ------------------------------ END ---------------------------------- ##
